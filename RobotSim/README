@@ -1,0 +1,46 @@
+# Project Name
+
+Real-time Mission Engineering Dashboard Application DAC6.5
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+
+## Installation
+
+Python on your workspace of choice. 
+
+Libraries to have installed:
+    - streamlit
+    - Numpy
+    - matplotlib
+    - os
+    - random
+    - math
+    - sympy
+    - scipy
+    - pandas 
+    - mplcursors
+    - tkinter
+    - pandas
+    - csv
+
+## Usage
+
+This code repo is split into 3 main portions: Dashboard, Processing Scripts, and Tradespace scripts (the sim folder is old python sim we are no longer using). 
+
+Dash Folder:
+This folder contains 1 python file DashOnlyModern.py and 2 txt files associated with the dashboard. All 3 are required to run the dashboard, as well as they need to be in the same repo. The dashboard uses the streamlit library (Python) which makes a front end website with very little experience required. Streamlit updates very often, so for our dashboard application it makes it difficult as the options are intially set to a default value, which is why we use the .txt files to only update the values from the .txt file rather than the .py file. The output.txt is a text file which has the format [startFlag, numRobots, robotVelocity, sensorAccuracy, communicationRange, missionLength, riskProfile]. Once the calculate button is pressed on the dashboard, this file (running on your laptop) only has access to the surrogate model so with every time step the surrogate model will be called, and it will append the data to data.txt which is then read by the matplot plots to plot the data. This is done such that the memory doesnt not get wiped when you choose to change input parameters (which is what would happen if you didnt use the txt file as a buffer). The data.txt is cleared to 0 when the simlength limit is reached or do it manually at the start with 0 on 2 rows. Note, the locations for the files which are read and written need to be absolute paths, meaning from origin as streamlit makes a socket on the internet so the reference path does not work.
+
+Process Scripts Folder:
+For the most part this folder can be ignored as it has some processing scripts to turn a folder of ARGoS output .csv into a single .csv such that you can perform any statisitcal/machine learning applications that are needed. Different scripts can do made to match your applications, this is what I used with the method I collected data from ARGoS (This primarily applies to processFolder.py). CSVchangeDetector.py is a script that you may need to use in the future if you need read from a csv only when the csv has changed. Primary application for this is in the lab computor for ARGoS as the .csv output is updated real time, but also reading it periodically at an appropriate time interval also works. readjson.py is to read json files which can be produced by using other consensus algorithms in ARGoS other than Khepraiv, more likely than not it will not be used, but in the offchange I wrote a script. Note, when i wrote this i did not suspect changing numbins so if you need to use it make sure the code accomendates for this.
+
+Tradespace Folder:
+This folder has a UI where you can view the tradespace of a dataset depending on the risk level associated with it. It may become a subset of the larger dashboard down the line if desired.
+
+## Contributing
+
+For any questions email kgolemi@wpi.edu [as of 4/28/2024]. Contact may change with revisions of the repo.
+
